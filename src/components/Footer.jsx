@@ -21,16 +21,17 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="lg:col-span-2 space-y-4">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#6366F1] to-[#38BDF8] flex items-center justify-center shadow-lg shadow-indigo-500/30">
-                <span className="text-white font-bold text-sm">B</span>
-              </div>
-              <span className="text-[#F8FAFC] font-bold text-lg tracking-tight">
-                Bushido <span className="text-[#6366F1]">IT</span>
-              </span>
+            <div className="inline-flex rounded-2xl bg-white/95 px-3 py-2 shadow-lg shadow-black/20 ring-1 ring-white/10">
+              <img
+                src="/hero.png"
+                alt="Bushido IT"
+                className="h-12 w-auto object-contain"
+              />
             </div>
+
             <p className="text-sm text-[#64748B] max-w-sm leading-relaxed">
-              Soluciones digitales para la gestión profesional. Sistemas que ordenan, automatizan y hacen crecer tu negocio.
+              Soluciones digitales para la gestión profesional. Sistemas que ordenan,
+              automatizan y hacen crecer tu negocio.
             </p>
           </div>
 

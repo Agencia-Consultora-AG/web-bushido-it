@@ -25,11 +25,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
           ? 'bg-[#0F172A]/95 backdrop-blur-md border-b border-[#1E293B] shadow-lg shadow-black/30'
           : 'bg-transparent'
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
@@ -37,14 +36,15 @@ export default function Header() {
           {/* Logo */}
           <button
             onClick={() => handleNav('#inicio')}
-            className="flex items-center gap-2.5 group"
+            className="group flex items-center"
           >
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#6366F1] to-[#38BDF8] flex items-center justify-center shadow-lg shadow-indigo-500/30 group-hover:shadow-indigo-500/50 transition-shadow">
-              <span className="text-white font-bold text-sm">GG</span>
+            <div className="rounded-xl bg-white/95 px-1 py-0 shadow-lg shadow-black/20 ring-1 ring-white/20 transition-all duration-300 group-hover:scale-105 group-hover:bg-white">
+              <img
+                src="/hero.png"
+                alt="Bushido IT"
+                className="h-12 sm:h-14 lg:h-16 w-auto object-contain"
+              />
             </div>
-               <span className="text-[#6366F1]">IT</span>
-            {/* <span className="text-[#F8FAFC] font-bold text-lg tracking-tight">
-            </span> */}
           </button>
 
           {/* Desktop nav */}
@@ -87,9 +87,8 @@ export default function Header() {
 
       {/* Mobile menu */}
       <div
-        className={`md:hidden transition-all duration-300 overflow-hidden ${
-          menuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
-        }`}
+        className={`md:hidden transition-all duration-300 overflow-hidden ${menuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
+          }`}
       >
         <div className="bg-[#0F172A]/98 backdrop-blur-md border-t border-[#1E293B] px-4 py-3 flex flex-col gap-1">
           {navLinks.map((link) => (
