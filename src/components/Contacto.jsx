@@ -92,7 +92,7 @@ export default function Contacto() {
             Escribinos qué necesitás mejorar. Te ayudamos a pensar una solución simple y posible.
           </p>
         </div>
-
+        
         <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-start">
           <div className="lg:col-span-3">
             <form
