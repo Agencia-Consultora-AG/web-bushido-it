@@ -1,4 +1,9 @@
 import { useState } from 'react'
+import emailjs from '@emailjs/browser'
+
+const EMAILJS_SERVICE_ID  = 'service_tc0o6y9'
+const EMAILJS_TEMPLATE_ID = 'template_1z96x6q'
+const EMAILJS_PUBLIC_KEY  = '3QfnfnSlaRBJGYFvW'
 
 const contactChannels = [
   {
@@ -22,10 +27,8 @@ const contactChannels = [
   {
     icon: '📸',
     label: 'Instagram',
-    // value: '@bushidoit',
-    // href: 'https://instagram.com/bushidoit',
-    value: '@develop.ag',
-    href: 'https://www.instagram.com/develop.ag/',
+    value: '@bushido.it.er',
+    href: 'https://www.instagram.com/bushido.it.er/',
     color: '#E1306C',
     desc: 'Próximamente: proyectos, avances y novedades',
   },
@@ -33,7 +36,7 @@ const contactChannels = [
 
 export default function Contacto() {
   const [form, setForm] = useState({ nombre: '', email: '', telefono: '', mensaje: '' })
-  const [sent, setSent] = useState(false)
+  const [status, setStatus] = useState('idle')
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -41,12 +44,28 @@ export default function Contacto() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    setStatus('sending')
 
-    console.log('Consulta recibida:', form)
-
-    setSent(true)
-    setTimeout(() => setSent(false), 4000)
-    setForm({ nombre: '', email: '', telefono: '', mensaje: '' })
+    emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      {
+        nombre:    form.nombre,
+        email:     form.email,
+        telefono:  form.telefono || 'No indicado',
+        mensaje:   form.mensaje,
+      },
+      EMAILJS_PUBLIC_KEY
+    )
+      .then(() => {
+        setStatus('sent')
+        setForm({ nombre: '', email: '', telefono: '', mensaje: '' })
+        setTimeout(() => setStatus('idle'), 5000)
+      })
+      .catch(() => {
+        setStatus('error')
+        setTimeout(() => setStatus('idle'), 5000)
+      })
   }
 
   return (
@@ -80,14 +99,21 @@ export default function Contacto() {
               onSubmit={handleSubmit}
               className="bg-[#1E293B]/60 border border-white/8 rounded-2xl p-6 lg:p-8"
             >
-              {sent && (
+              {status === 'sent' && (
                 <div className="mb-6 p-4 rounded-xl bg-green-500/10 border border-green-500/30 flex items-center gap-3">
                   <span className="text-green-400 text-lg">✓</span>
                   <div>
-                    <div className="text-sm font-medium text-green-400">Consulta registrada</div>
-                    <div className="text-xs text-green-400/70">
-                      Próximamente conectaremos este formulario a WhatsApp o email.
-                    </div>
+                    <div className="text-sm font-medium text-green-400">Consulta enviada</div>
+                    <div className="text-xs text-green-400/70">Te respondemos a la brevedad.</div>
+                  </div>
+                </div>
+              )}
+              {status === 'error' && (
+                <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center gap-3">
+                  <span className="text-red-400 text-lg">✕</span>
+                  <div>
+                    <div className="text-sm font-medium text-red-400">Error al enviar</div>
+                    <div className="text-xs text-red-400/70">Intentá de nuevo o escribinos por WhatsApp.</div>
                   </div>
                 </div>
               )}
@@ -148,14 +174,15 @@ export default function Contacto() {
 
                 <button
                   type="submit"
-                  className="w-full py-3.5 rounded-xl font-medium bg-gradient-to-r from-[#6366F1] to-[#4F52C9] hover:from-[#4F52C9] hover:to-[#6366F1] text-white transition-all duration-300 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-0.5 flex items-center justify-center gap-2"
+                  disabled={status === 'sending'}
+                  className="w-full py-3.5 rounded-xl font-medium bg-gradient-to-r from-[#6366F1] to-[#4F52C9] hover:from-[#4F52C9] hover:to-[#6366F1] text-white transition-all duration-300 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-0.5 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                 >
-                  <span>Solicitar asesoramiento</span>
-                  <span>→</span>
+                  <span>{status === 'sending' ? 'Enviando...' : 'Solicitar asesoramiento'}</span>
+                  {status !== 'sending' && <span>→</span>}
                 </button>
 
                 <p className="text-xs text-[#475569] text-center">
-                  Tu información es confidencial. El formulario quedará preparado para conectar con WhatsApp, email o una API.
+                  Tu información es confidencial y solo será usada para responder tu consulta.
                 </p>
               </div>
             </form>

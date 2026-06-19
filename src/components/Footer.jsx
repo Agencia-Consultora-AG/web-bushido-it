@@ -23,7 +23,7 @@ export default function Footer() {
           <div className="lg:col-span-2 space-y-4">
             <div className="inline-flex rounded-2xl bg-white/95 px-3 py-2 shadow-lg shadow-black/20 ring-1 ring-white/10">
               <img
-                src="/hero.png"
+                src="/logo-minimalista.png"
                 alt="Bushido IT"
                 className="h-12 w-auto object-contain"
               />

@@ -40,7 +40,7 @@ export default function Header() {
           >
             <div className="rounded-xl bg-white/95 px-1 py-0 shadow-lg shadow-black/20 ring-1 ring-white/20 transition-all duration-300 group-hover:scale-105 group-hover:bg-white">
               <img
-                src="/hero.png"
+                src="/logo-minimalista.png"
                 alt="Bushido IT"
                 className="h-12 sm:h-14 lg:h-16 w-auto object-contain"
               />
